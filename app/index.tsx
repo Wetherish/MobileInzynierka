@@ -19,7 +19,7 @@ export default function IoTDashboard() {
 
   return (
     <ScrollView style={styles.container}>
-      {/* Header */}
+      {}
       <View style={styles.header}>
         <Text style={styles.title}>Smart Home Dashboard</Text>
         <TouchableOpacity style={styles.refreshButton}>
@@ -27,33 +27,33 @@ export default function IoTDashboard() {
         </TouchableOpacity>
       </View>
 
-      {/* Device Card */}
+      {}
       <View style={styles.deviceCard}>
         <View style={styles.deviceInfo}>
           <FontAwesome5 name="lightbulb" size={28} color={ringColor} />
           <Text style={styles.deviceTitle}>Living Room Light</Text>
         </View>
 
-        {/* LED Ring Button */}
+        {}
         <TouchableOpacity onPress={toggleDevice} style={[styles.ledRing, { borderColor: ringColor }]}>
           <View style={[styles.ledInner, { backgroundColor: ringColor }]} />
         </TouchableOpacity>
         <Text style={styles.deviceStatus}>{isDeviceOn ? 'On' : 'Off'}</Text>
       </View>
 
-      {/* Chart Section */}
+      {}
       <Text style={styles.chartTitle}>Temperature Over Time</Text>
       <LineChart
         data={{
           labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
           datasets: [{ data: [22, 24, 20, 23, 25, 24] }]
         }}
-        width={320} // Adjust based on your view width
+        width={320}
         height={200}
         yAxisSuffix="°C"
         chartConfig={chartConfig}
         style={styles.chart}
-      />     
+      />
     </ScrollView>
   );
 }

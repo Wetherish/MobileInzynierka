@@ -14,16 +14,16 @@ const Logs = () => {
   const mqttClient = new MqttClient();
 
   useEffect(() => {
-    // Subscribe to topics and handle incoming messages
     const handleNewMessage = (topic: string, content: string) => {
       setMessages((prevMessages) => [...prevMessages, { topic, content }]);
     };
     
-    mqttClient.addTopic('my/test/topic1', handleNewMessage);
-    mqttClient.addTopic('my/test/topic2', handleNewMessage);
-    mqttClient.addTopic('my/test/topic3', handleNewMessage);
+    mqttClient.addTopic('Led', handleNewMessage);
+    mqttClient.addTopic('Devices/0', handleNewMessage);
+    mqttClient.addTopic('Devices/1', handleNewMessage);
+    mqttClient.addTopic('Devices/2', handleNewMessage);
+    mqttClient.addTopic('Devices/3', handleNewMessage);
 
-    // Optionally disconnect on unmount
     return () => {
       mqttClient.disconnect();
     };

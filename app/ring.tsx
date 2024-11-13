@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import RingOfButtons from '../components/RingOfButtons';
+import MqttClient from "@/components/MqttClient";
 
 const SettingsScreen: React.FC = () => {
-  return (
+  const mqttClient = new MqttClient();  return (
     <View style={styles.container}>
-      {/* Render the ring of buttons in the center of the screen */}
-      <RingOfButtons buttonCount={8} />
+      <RingOfButtons mqttClient={mqttClient}/>
     </View>
   );
 };
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f0f0f0', // Match the background color in your image
+    backgroundColor: '#f0f0f0',
   },
 });
 

@@ -41,9 +41,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="ring"
         options={{
-          title: 'Settings',
+          title: 'ring',
           tabBarIcon: ({ color, size = 26 }) => (
             <FontAwesome name="cog" color={color} size={size} />
           ),
@@ -59,18 +59,18 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="example"
+        name="config"
         options={{
-          title: 'Example',
+          title: 'config',
           tabBarIcon: ({ color, size = 26 }) => (
             <AntDesign name="meh" color={color} size={size} />
           ),
         }}
       />
       <Tabs.Screen
-        name="details"
+        name="devices"
         options={{
-          title: 'Details',
+          title: 'Devices',
           tabBarIcon: ({ color, size = 26 }) => (
             <AntDesign name="tool" color={color} size={size} />
           ),
