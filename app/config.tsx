@@ -20,7 +20,7 @@ export default function App() {
     };
 
     const fetchConfigs = () => {
-        axios.get('http://yourip:8080/config')
+        axios.get('http://raspberrypi:8080/config')
             .then(response => {
                 setConfigs(response.data);
             })
@@ -38,7 +38,7 @@ export default function App() {
 
         const parsedJson = JSON.parse(jsonInput);
 
-        axios.post('http://yourip:8080/config', parsedJson)
+        axios.post('http://raspberrypi:8080/config', parsedJson)
             .then(response => {
                 Alert.alert('Success', 'Configuration sent successfully!');
                 fetchConfigs();
@@ -64,7 +64,7 @@ export default function App() {
         const parsedJson = JSON.parse(jsonInput);
 
         if (editingConfig) {
-            axios.post('http://yourip:8080/config', parsedJson)
+            axios.post('http://raspberrypi:8080/config', parsedJson)
                 .then(response => {
                     Alert.alert('Success', 'Configuration updated successfully!');
                     fetchConfigs();
@@ -79,7 +79,7 @@ export default function App() {
     };
 
     const clearConfigs = () => {
-        axios.delete('http://yourip:8080/config')
+        axios.delete('http://raspberrypi:8080/config')
             .then(response => {
                 Alert.alert('Success', 'All configurations cleared.');
                 setConfigs([]);

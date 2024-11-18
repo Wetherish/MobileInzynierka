@@ -10,7 +10,7 @@ class MqttClient {
 
   constructor() {
     this.client = new PahoClient(
-        'your ip',
+        'raspberrypi',
         Number(9001),
         `mqttjs_${Math.random().toString(16).slice(2)}` // Unique client ID
     );

@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Modal, Pressable, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Modal, Pressable, StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import ColorPicker, { Panel1, Swatches, colorKit, PreviewText, HueCircular } from 'reanimated-color-picker';
 import { FontAwesome } from '@expo/vector-icons';
 import MqttClient from './MqttClient';
 
+const BUTTON_RADIUS = 25;
+const RING_RADIUS = 150;
 interface LED {
   id: number;
   isOn: boolean;
@@ -24,18 +26,42 @@ const MergedComponent: React.FC<MergedComponentProps>  = (mqttClient) => {
       color: '#4CAF50',
     }))
   );
-  const customSwatches = new Array(6).fill('#fff').map(() => colorKit.randomRgbColor().hex());
+  const customSwatches = new Array(6).fill('#fff').map(() => colorLed);
   const selectedColor = useSharedValue(customSwatches[0]);
   const backgroundColorStyle = useAnimatedStyle(() => ({ backgroundColor: selectedColor.value }));
 
-  const toggleLed = (id: number) => {
+  const toggleLed = (id: number, command: string) => {
     setLeds((prevLeds) =>
-      prevLeds.map((led) =>
-        led.id === id ? { ...led, isOn: !led.isOn, color: selectedColor.value } : led
-      )
+        prevLeds.map((led) =>
+            led.id === id
+                ? { ...led, isOn: command === "on", color: selectedColor.value }
+                : led
+        )
     );
+    console.log("number: "+ id + " command: ", command)
   };
+  function extractCommandAndNumber(input: string): { command: string, id: number | null } | null {
+    const match = input.match(/^([a-zA-Z]+)\/(\d+)$/);
+    if (match) {
+      const command = match[1];
+      const id = parseInt(match[2], 10);
+      console.log(`Extracted command: ${command}, id: ${id}`); // Debug log
+      return { command, id };
+    }
+    console.error("Failed to parse input:", input); // Debug log for failed parsing
+    return null;
+  }
+  useEffect(() => {
+    const handleLedResponse = (topic: string, content: string) => {
+      const result = extractCommandAndNumber(content)
+      if (result && result.id !== null && result.command){
+        toggleLed(result.id, result.command)
+      }
 
+    };
+
+    mqttClient.mqttClient.addTopic('LedResponse', handleLedResponse);
+  }, []);
   const handleSendColor = () => {
     mqttClient.mqttClient.sendMessage('color', selectedColor.value);
   };
