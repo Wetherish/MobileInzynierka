@@ -26,7 +26,7 @@ const MergedComponent: React.FC<MergedComponentProps>  = (mqttClient) => {
       color: '#4CAF50',
     }))
   );
-  const customSwatches = new Array(6).fill('#fff').map(() => colorLed);
+  const customSwatches = new Array(6).fill('#fff').map(() => "#343aeb");
   const selectedColor = useSharedValue(customSwatches[0]);
   const backgroundColorStyle = useAnimatedStyle(() => ({ backgroundColor: selectedColor.value }));
 
@@ -45,10 +45,10 @@ const MergedComponent: React.FC<MergedComponentProps>  = (mqttClient) => {
     if (match) {
       const command = match[1];
       const id = parseInt(match[2], 10);
-      console.log(`Extracted command: ${command}, id: ${id}`); // Debug log
+      console.log(`Extracted command: ${command}, id: ${id}`);
       return { command, id };
     }
-    console.error("Failed to parse input:", input); // Debug log for failed parsing
+    console.error("Failed to parse input:", input);
     return null;
   }
   useEffect(() => {
