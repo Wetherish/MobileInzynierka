@@ -1,5 +1,3 @@
-// app/Logs.tsx
-
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import MqttClient from '@/components/MqttClient';
